@@ -1,5 +1,7 @@
 #include <Arduino.h>
 #include "WiFi.h"
+#include "esp_camera.h"
+#include "camera_pins.h"
 
 const char *ssid = "1";
 const char *password = "1";
