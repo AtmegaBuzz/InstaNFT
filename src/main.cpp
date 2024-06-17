@@ -2,9 +2,10 @@
 #include "WiFi.h"
 #include "esp_camera.h"
 #include "camera_pins.h"
+#include "HTTPClient.h"
 
-const char *ssid = "1";
-const char *password = "1";
+const char *ssid = "Airtel_swap_4913";
+const char *password = "air21116";
 
 camera_config_t config;
 int camera_init_fail = 0;
@@ -12,6 +13,8 @@ int camera_init_fail = 0;
 void setup()
 {
   Serial.begin(9600);
+  pinMode(LED_GPIO_NUM, OUTPUT);
+
 
   WiFi.begin(ssid, password);
   WiFi.setSleep(false);
@@ -85,6 +88,8 @@ void loop()
   if (!camera_init_fail)
   {
 
+    digitalWrite(LED_GPIO_NUM, HIGH);
+
     Serial.println("Taking picture ...");
 
     camera_fb_t *pic = esp_camera_fb_get();
@@ -93,6 +98,7 @@ void loop()
     Serial.println(pic->len);
 
     esp_camera_fb_return(pic);
+    digitalWrite(LED_GPIO_NUM, LOW);
   }
 
   else
