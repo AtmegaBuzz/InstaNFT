@@ -2,7 +2,8 @@
 
 
 ## Demo
-![Demo Video](https://youtu.be/N9f028EOvnw)
+[![Demo Video](https://youtu.be/N9f028EOvnw)
+](https://www.youtube.com/watch?v=N9f028EOvnw)
 
 ## Overview
 
