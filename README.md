@@ -1,6 +1,4 @@
-
-![ao](https://github.com/AtmegaBuzz/InstaNFT/assets/68425016/5e828375-21a8-458f-b34c-9638000faaae)
-<center><img src="https://github.com/AtmegaBuzz/InstaNFT/assets/68425016/5e828375-21a8-458f-b34c-9638000faaae" alt="logo" width="20%" /></center>
+<center><img src="https://github.com/AtmegaBuzz/InstaNFT/assets/68425016/5e828375-21a8-458f-b34c-9638000faaae" alt="logo" width="30%" /></center>
 
 
 # AO CAM InstaNFT
