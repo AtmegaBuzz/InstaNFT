@@ -1,4 +1,5 @@
 #include <Arduino.h>
+
 #include "WiFi.h"
 #include "esp_camera.h"
 #include "camera_pins.h"
@@ -12,9 +13,40 @@ String serverPath = "/upload";
 String fileName = "ESP32-001";
 
 // the below mentioned array contains 8 times RDDL: "CAMMCAMMCAMMCAMMCAMMCAMMCAMMCAMM";
-uint8_t private_key_machine_id[32] = { 0x43, 0x41, 0x4d, 0x4d, 0x43, 0x41, 0x4d, 0x4d, 0x43, 0x41, 0x4d, 0x4d,\
-                                       0x43, 0x41, 0x4d, 0x4d, 0x43, 0x41, 0x4d, 0x4d, 0x43, 0x41, 0x4d, 0x4d,\
-                                       0x43, 0x41, 0x4d, 0x4d, 0x43, 0x41, 0x4d, 0x4d, };
+uint8_t private_key_machine_id[32] = {
+    0x43,
+    0x41,
+    0x4d,
+    0x4d,
+    0x43,
+    0x41,
+    0x4d,
+    0x4d,
+    0x43,
+    0x41,
+    0x4d,
+    0x4d,
+    0x43,
+    0x41,
+    0x4d,
+    0x4d,
+    0x43,
+    0x41,
+    0x4d,
+    0x4d,
+    0x43,
+    0x41,
+    0x4d,
+    0x4d,
+    0x43,
+    0x41,
+    0x4d,
+    0x4d,
+    0x43,
+    0x41,
+    0x4d,
+    0x4d,
+};
 
 const int pictureInterval = 60000; // time between each image (in milliseconds)
 unsigned long latestPicture = 0;
@@ -85,8 +117,7 @@ void setup()
 
 void loop()
 {
-
-
+  
   if (!camera_init_fail)
   {
     digitalWrite(LED_GPIO_NUM, HIGH);
@@ -95,7 +126,6 @@ void loop()
     camera_fb_t *fb = esp_camera_fb_get();
 
     digitalWrite(LED_GPIO_NUM, LOW);
-
 
     Serial.println("Took a picture of size: ");
     Serial.println(fb->len);
@@ -130,9 +160,9 @@ void loop()
         client.write(fbBuf + n, chunkSize);
       }
       client.print(tail);
+      client.stop();
 
       esp_camera_fb_return(fb);
-
     }
   }
   else
