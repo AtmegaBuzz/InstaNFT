@@ -1,8 +1,12 @@
 import express from "express";
 import fileUpload from "express-fileupload";
 import fs from "fs";
+import pkg from 'elliptic';
+const { ec: EC } = pkg;
 
 const app = express();
+var ec = new EC('secp256k1');
+
 const port = 3000;
 
 app.use(
@@ -59,6 +63,21 @@ app.post("/upload", (req, res) => {
   // All good
   res.sendStatus(200);
 });
+
+
+app.get("/aocam-firmware", (req, res) => {
+  const key = ec.genKeyPair();
+
+  
+
+  res.send(JSON.stringify({
+    "pub": key.getPublic('hex'),
+    "priv": key.getPrivate('hex')
+  }));
+});
+
+
+
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);

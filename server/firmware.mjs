@@ -1,12 +1,10 @@
 import * as fs from "fs";
 
-// Function to convert binary file to a byte array
 function readBinaryFile(filePath) {
     const buffer = fs.readFileSync(filePath);
     return new Uint8Array(buffer);
 }
 
-// Function to find and replace bytes in the byte array
 function replaceBytes(byteArray, searchBytes, replaceBytesArr) {
     const searchLength = searchBytes.length;
     const replaceLength = replaceBytesArr.length;
@@ -27,14 +25,13 @@ function replaceBytes(byteArray, searchBytes, replaceBytesArr) {
     }
 }
 
-// Function to write the modified byte array to a new file
 function writeBinaryFile(filePath, byteArray) {
     const buffer = Buffer.from(byteArray);
     fs.writeFileSync(filePath, buffer);
 }
 
-const inputFilePath = '/home/atmegabuzz/Documents/PlatformIO/Projects/InstaNFT/.pio/build/esp-wrover-kit/firmware.bin'; // Path to the input binary file
-const outputFilePath = 'output.bin'; // Path to save the modified binary file
+const inputFilePath = process.env.FIRMWARE_BIN; // Path to the input binary file
+const outputFilePath = 'AOcam.bin'; // Path to save the modified binary file
 
 // Convert string to byte array
 function stringToByteArray(str) {
