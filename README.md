@@ -36,7 +36,7 @@ To start using the Camera-NFT project:
 - **Verification:** Verify the authenticity of NFTs by checking their origin using device signatures.
 
 ## Architecture
-![image](https://github.com/AtmegaBuzz/InstaNFT/assets/68425016/0ec405a9-03c5-457d-ad47-6b9df7b8b18b)
+![image](https://github.com/AtmegaBuzz/InstaNFT/assets/68425016/202e0ea0-beb5-4d80-b2f4-a8d209e20b5f)
 
 ## Flashing the attested bin
 ```
