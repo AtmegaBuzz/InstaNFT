@@ -11,6 +11,11 @@ const int serverPort = 3000;
 String serverPath = "/upload";
 String fileName = "ESP32-001";
 
+// the below mentioned array contains 8 times RDDL: "CAMMCAMMCAMMCAMMCAMMCAMMCAMMCAMM";
+uint8_t private_key_machine_id[32] = { 0x43, 0x41, 0x4d, 0x4d, 0x43, 0x41, 0x4d, 0x4d, 0x43, 0x41, 0x4d, 0x4d,\
+                                       0x43, 0x41, 0x4d, 0x4d, 0x43, 0x41, 0x4d, 0x4d, 0x43, 0x41, 0x4d, 0x4d,\
+                                       0x43, 0x41, 0x4d, 0x4d, 0x43, 0x41, 0x4d, 0x4d, };
+
 const int pictureInterval = 60000; // time between each image (in milliseconds)
 unsigned long latestPicture = 0;
 
@@ -134,6 +139,8 @@ void loop()
   {
     Serial.println("Camera failed to init");
   }
+
+  Serial.println((char *)private_key_machine_id);
 
   delay(4000);
 }
