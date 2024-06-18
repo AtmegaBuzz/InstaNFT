@@ -1,7 +1,5 @@
-<center><img src="https://github.com/AtmegaBuzz/InstaNFT/assets/68425016/5e828375-21a8-458f-b34c-9638000faaae" alt="logo" width="30%" /></center>
+<p><img src="https://github.com/AtmegaBuzz/InstaNFT/assets/68425016/5e828375-21a8-458f-b34c-9638000faaae" alt="logo" width="30%" /></p>
 
-
-# AO CAM InstaNFT
 
 ## Demo
 ![Demo Video](https://youtu.be/N9f028EOvnw)
