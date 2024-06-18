@@ -1,5 +1,8 @@
 # AO CAM InstaNFT
 
+## Demo
+![Demo Video](https://youtu.be/N9f028EOvnw)
+
 ## Overview
 
 The Camera-NFT project aims to revolutionize the creation and verification of NFTs (Non-Fungible Tokens) using a custom-built camera device. This device is equipped with unique cryptographic identities that ensure the authenticity and origin of NFTs created from personal pictures or captured moments at Web3 events.
@@ -11,7 +14,7 @@ The Camera-NFT project aims to revolutionize the creation and verification of NF
 - **Technical Specifications:**
   - **Elliptic Curve:** Secp2561k is used for generating signatures, utilizing a 32-bit machine ID (machine private key).
   - **Integration:** Implemented ERC721 Lua script enables easy conversion of personal images into NFTs on AO.
-  - **Hardware:** The camera device is built on the AI Thinker ESP32 Cam Board.
+  - **Hardware:** The camera device is built on the **AI Thinker ESP32** Cam Board.
 
 ## Getting Started
 
@@ -32,6 +35,8 @@ To start using the Camera-NFT project:
 - **Minting NFTs:** Execute the ERC721 Lua script on AO to convert your photos into NFTs.
 - **Verification:** Verify the authenticity of NFTs by checking their origin using device signatures.
 
+## Architecture
+![image](https://github.com/AtmegaBuzz/InstaNFT/assets/68425016/0ec405a9-03c5-457d-ad47-6b9df7b8b18b)
 
 ## Flashing the attested bin
 ```
@@ -41,11 +46,8 @@ esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 115200 write_flash -z \
     0x10000 /home/atmegabuzz/Documents/PlatformIO/Projects/InstaNFT/server/output.bin
 ```
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-For questions or inquiries, please contact [Your Name](mailto:your-email@example.com).
+For questions or inquiries, please contact [AtmegaBuzz](https://x.com/a_kraken_head).
 
