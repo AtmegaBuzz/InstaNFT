@@ -5,7 +5,12 @@
 
 ## Overview
 
-The Camera-NFT project aims to revolutionize the creation and verification of NFTs (Non-Fungible Tokens) using a custom-built camera device. This device is equipped with unique cryptographic identities that ensure the authenticity and origin of NFTs created from personal pictures or captured moments at Web3 events.
+The Camera-NFT project introduces a novel approach to NFT creation by embedding unique cryptographic identities into custom-built camera devices. These identities ensure the authenticity of NFTs created from personal photos or captured moments at Web3 events. Using advanced cryptography and an integrated ERC721 Lua script, users can easily convert photos into NFTs on AO (Assured Origin), making the process seamless and verifiable. This project aims to bridge the gap between physical photography and digital ownership in the Web3 ecosystem, offering a new way to capture and monetize personal moments securely.
+
+Project aims to revolutionize the creation and verification of NFTs (Non-Fungible Tokens) using a custom-built camera device. This device is equipped with unique cryptographic identities that ensure the authenticity and origin of NFTs created from personal pictures or captured moments at Web3 events.
+
+## Motivation 
+I am excited about Arweave and AO because they give us the tools to create and verify NFTs in a whole new way. Arweave stores our NFTs permanently and securely, while AO's hyper-parallel computing lets us scale up our operations like never before. Together, they're helping us build a platform that's fun, secure, and cutting-edge for minting and enjoying digital art and memories.
 
 ## Key Features
 
