@@ -6,17 +6,27 @@ import {
     monitor,
     unmonitor,
     dryrun,
+    createDataItemSigner
   } from "@permaweb/aoconnect";
 
-
-import { connect } from "@permaweb/aoconnect";
-
+import {readFileSync} from "fs"
 
 
-const { result, results, message, spawn, monitor, unmonitor, dryrun } = connect(
-    {
-      GATEWAY_URL: "https://specs.g8way.io",
-    },
-  );
 
-  
+const wallet = JSON.parse(
+    readFileSync("wallet.json").toString(),
+);
+
+
+
+await message({
+    process: "G6loEk2sBLnczupcyea6dwuldLFIdr9eAK2zzMMZa9Y",
+    tags: [
+      { name: "Action", value: "RegisterCamera" },
+      { name: "MachineID", value: "0x12345" },
+    ],
+    signer: createDataItemSigner(wallet),
+    data: "any data",
+  })
+    .then(console.log)
+    .catch(console.error);
