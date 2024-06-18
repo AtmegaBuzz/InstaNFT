@@ -2,19 +2,27 @@
 #include "WiFi.h"
 #include "esp_camera.h"
 #include "camera_pins.h"
-#include "HTTPClient.h"
 
 const char *ssid = "Airtel_swap_4913";
 const char *password = "air21116";
 
+String serverName = "192.168.1.6";
+const int serverPort = 3000;
+String serverPath = "/upload";
+String fileName = "ESP32-001";
+
+const int pictureInterval = 60000; // time between each image (in milliseconds)
+unsigned long latestPicture = 0;
+
 camera_config_t config;
 int camera_init_fail = 0;
 
+WiFiClient client;
+
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(115200);
   pinMode(LED_GPIO_NUM, OUTPUT);
-
 
   WiFi.begin(ssid, password);
   WiFi.setSleep(false);
@@ -46,14 +54,10 @@ void setup()
   config.pin_pwdn = PWDN_GPIO_NUM;
   config.pin_reset = RESET_GPIO_NUM;
   config.xclk_freq_hz = 20000000;
+  config.pixel_format = PIXFORMAT_JPEG;
   config.frame_size = FRAMESIZE_HD;
-  config.pixel_format = PIXFORMAT_JPEG; // for streaming
-  // config.pixel_format = PIXFORMAT_RGB565; // for face detection/recognition
-  config.grab_mode = CAMERA_GRAB_WHEN_EMPTY;
-  config.fb_location = CAMERA_FB_IN_PSRAM;
-  config.jpeg_quality = 12;
+  config.jpeg_quality = 1;
   config.fb_count = 2;
-  config.grab_mode = CAMERA_GRAB_LATEST;
 
   esp_err_t err = esp_camera_init(&config);
 
@@ -64,47 +68,72 @@ void setup()
     Serial.println("");
   }
 
-  // while(esp_camera_init(&config) != ESP_OK) {
-  //     delay(4000);
-  // }
-
   sensor_t *s = esp_camera_sensor_get();
-  // initial sensors are flipped vertically and colors are a bit saturated
   if (s->id.PID == OV3660_PID)
   {
-    s->set_vflip(s, 1);       // flip it back
-    s->set_brightness(s, 5);  // up the brightness just a bit
-    s->set_saturation(s, -2); // lower the saturation
+    s->set_vflip(s, 1);
+    s->set_brightness(s, 1);
+    s->set_saturation(s, -2);
   }
-  // drop down frame size for higher initial frame rate
-  if (config.pixel_format == PIXFORMAT_JPEG)
-  {
-    s->set_framesize(s, FRAMESIZE_QVGA);
-  }
+  s->set_framesize(s, FRAMESIZE_QVGA);
 }
 
 void loop()
 {
+
+
   if (!camera_init_fail)
   {
-
     digitalWrite(LED_GPIO_NUM, HIGH);
-
     Serial.println("Taking picture ...");
 
-    camera_fb_t *pic = esp_camera_fb_get();
+    camera_fb_t *fb = esp_camera_fb_get();
 
-    Serial.print("Took a picture of size: ");
-    Serial.println(pic->len);
-
-    esp_camera_fb_return(pic);
     digitalWrite(LED_GPIO_NUM, LOW);
-  }
 
+
+    Serial.println("Took a picture of size: ");
+    Serial.println(fb->len);
+
+    if (client.connect(serverName.c_str(), serverPort))
+    {
+
+      Serial.println("Connection successful!");
+      String boundary = "--MK--";
+      String head = "--" + boundary + "\r\nContent-Disposition: form-data; name=\"image\"; filename=\"" + fileName + ".jpg\"\r\nContent-Type: image/jpeg\r\n\r\n";
+      String tail = "\r\n--" + boundary + "--\r\n";
+
+      uint32_t imageLen = fb->len;
+      uint32_t totalLen = imageLen + head.length() + tail.length();
+
+      Serial.println("Sending Image...");
+
+      client.println("POST " + serverPath + " HTTP/1.1");
+      client.println("Host: " + serverName);
+      client.println("Content-Length: " + String(totalLen));
+      client.println("Content-Type: multipart/form-data; boundary=" + boundary);
+      client.println();
+      client.print(head);
+
+      uint8_t *fbBuf = fb->buf;
+      size_t fbLen = fb->len;
+      size_t bufferSize = 1024;
+      for (size_t n = 0; n < fbLen; n += bufferSize)
+      {
+        size_t remaining = fbLen - n;
+        size_t chunkSize = remaining < bufferSize ? remaining : bufferSize;
+        client.write(fbBuf + n, chunkSize);
+      }
+      client.print(tail);
+
+      esp_camera_fb_return(fb);
+
+    }
+  }
   else
   {
     Serial.println("Camera failed to init");
   }
 
-  delay(2000);
+  delay(4000);
 }
